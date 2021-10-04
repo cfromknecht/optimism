@@ -6,6 +6,7 @@ import {
 } from './types'
 import { handlers } from './handlers'
 import { classify } from './classifiers'
+import { downloadAllSolcVersions } from './download-solc'
 
 const main = async () => {
   const dump: StateDump = null as any // TODO
@@ -21,6 +22,8 @@ const main = async () => {
     l1MainnetProvider: null as any, // TODO
     l2Provider: null as any, // TODO
   }
+
+  await downloadAllSolcVersions()
 
   // TODO: Insert any accounts from genesis that aren't in the dump
 
