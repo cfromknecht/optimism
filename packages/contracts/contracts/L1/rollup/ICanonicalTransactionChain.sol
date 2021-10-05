@@ -2,16 +2,15 @@
 pragma solidity >0.5.0 <0.9.0;
 
 /* Library Imports */
-import { Lib_OVMCodec } from "../../libraries/codec/Lib_OVMCodec.sol";
+import {Lib_OVMCodec} from "../../libraries/codec/Lib_OVMCodec.sol";
 
 /* Interface Imports */
-import { IChainStorageContainer } from "./IChainStorageContainer.sol";
+import {IChainStorageContainer} from "./IChainStorageContainer.sol";
 
 /**
  * @title ICanonicalTransactionChain
  */
 interface ICanonicalTransactionChain {
-
     /**********
      * Events *
      **********/
@@ -45,7 +44,6 @@ interface ICanonicalTransactionChain {
         bytes _extraData
     );
 
-
     /***********
      * Structs *
      ***********/
@@ -57,126 +55,74 @@ interface ICanonicalTransactionChain {
         uint256 blockNumber;
     }
 
-
     /********************
      * Public Functions *
      ********************/
-
 
     /**
      * Accesses the batch storage container.
      * @return Reference to the batch storage container.
      */
-    function batches()
-        external
-        view
-        returns (
-            IChainStorageContainer
-        );
+    function batches() external view returns (IChainStorageContainer);
 
     /**
      * Accesses the queue storage container.
      * @return Reference to the queue storage container.
      */
-    function queue()
-        external
-        view
-        returns (
-            IChainStorageContainer
-        );
+    function queue() external view returns (IChainStorageContainer);
 
     /**
      * Retrieves the total number of elements submitted.
      * @return _totalElements Total submitted elements.
      */
-    function getTotalElements()
-        external
-        view
-        returns (
-            uint256 _totalElements
-        );
+    function getTotalElements() external view returns (uint256 _totalElements);
 
     /**
      * Retrieves the total number of batches submitted.
      * @return _totalBatches Total submitted batches.
      */
-    function getTotalBatches()
-        external
-        view
-        returns (
-            uint256 _totalBatches
-        );
+    function getTotalBatches() external view returns (uint256 _totalBatches);
 
     /**
      * Returns the index of the next element to be enqueued.
      * @return Index for the next queue element.
      */
-    function getNextQueueIndex()
-        external
-        view
-        returns (
-            uint40
-        );
+    function getNextQueueIndex() external view returns (uint40);
 
     /**
      * Gets the queue element at a particular index.
      * @param _index Index of the queue element to access.
      * @return _element Queue element at the given index.
      */
-    function getQueueElement(
-        uint256 _index
-    )
+    function getQueueElement(uint256 _index)
         external
         view
-        returns (
-            Lib_OVMCodec.QueueElement memory _element
-        );
+        returns (Lib_OVMCodec.QueueElement memory _element);
 
     /**
      * Returns the timestamp of the last transaction.
      * @return Timestamp for the last transaction.
      */
-    function getLastTimestamp()
-        external
-        view
-        returns (
-            uint40
-        );
+    function getLastTimestamp() external view returns (uint40);
 
     /**
      * Returns the blocknumber of the last transaction.
      * @return Blocknumber for the last transaction.
      */
-    function getLastBlockNumber()
-        external
-        view
-        returns (
-            uint40
-        );
+    function getLastBlockNumber() external view returns (uint40);
 
     /**
      * Get the number of queue elements which have not yet been included.
      * @return Number of pending queue elements.
      */
-    function getNumPendingQueueElements()
-        external
-        view
-        returns (
-            uint40
-        );
+    function getNumPendingQueueElements() external view returns (uint40);
 
     /**
      * Retrieves the length of the queue, including
      * both pending and canonical transactions.
      * @return Length of the queue.
      */
-    function getQueueLength()
-        external
-        view
-        returns (
-            uint40
-        );
-
+    function getQueueLength() external view returns (uint40);
 
     /**
      * Adds a transaction to the queue.
@@ -188,8 +134,7 @@ interface ICanonicalTransactionChain {
         address _target,
         uint256 _gasLimit,
         bytes memory _data
-    )
-        external;
+    ) external;
 
     /**
      * Allows the sequencer to append a batch of transactions.
@@ -204,6 +149,5 @@ interface ICanonicalTransactionChain {
         // uint24 _totalElementsToAppend,
         // BatchContext[] _contexts,
         // bytes[] _transactionDataFields
-    )
-        external;
+    ) external;
 }
