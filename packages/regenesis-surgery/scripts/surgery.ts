@@ -9,7 +9,7 @@ import { classify } from './classifiers'
 import { downloadAllSolcVersions } from './download-solc'
 
 const main = async () => {
-  const dump: StateDump = null as any // TODO
+  const dump: StateDump = [] as any // TODO
   const genesis: StateDump = null as any // TODO
   const pools: UniswapPoolData[] = null as any // TODO
   const etherscanDump: EtherscanContract[] = null as any // TODO
@@ -26,7 +26,6 @@ const main = async () => {
   await downloadAllSolcVersions()
 
   // TODO: Insert any accounts from genesis that aren't in the dump
-
   const output: StateDump = []
   for (const account of dump) {
     const accountType = classify(account, data)
@@ -37,3 +36,5 @@ const main = async () => {
     }
   }
 }
+
+main()

@@ -63,3 +63,12 @@ export interface SurgeryDataSources {
   l1MainnetProvider: ethers.providers.JsonRpcProvider
   l2Provider: ethers.providers.JsonRpcProvider
 }
+
+export interface immutableReference {
+  start: number
+  length: number
+}
+
+export interface immutableReferences {
+  [key: string]: immutableReference[]
+}
