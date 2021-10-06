@@ -32,12 +32,6 @@ const deployFn: DeployFunction = async (hre) => {
     name: 'OVM_Proposer',
     address: (hre as any).deployConfig.ovmProposerAddress,
   })
-
-  await registerAddress({
-    hre,
-    name: 'OVM_BurnAdmin',
-    address: (hre as any).deployConfig.ovmBurnAdmin,
-  })
 }
 
 deployFn.tags = ['Lib_AddressManager', 'required']
