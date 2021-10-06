@@ -1,5 +1,14 @@
 import { ethers } from 'ethers'
 
+export interface SurgeryConfigs {
+  stateDumpFilePath: string
+  etherscanFilePath: string
+  l2ProviderUrl: string
+  l2NetworkName: string
+  l1MainnetProviderUrl: string
+  l1TestnetProviderUrl: string
+  l1TestnetPrivateKey: string
+}
 export interface Account {
   address: string
   nonce: number
@@ -13,6 +22,13 @@ export interface Account {
 }
 
 export type StateDump = Account[]
+
+export interface StateDumpRoot {
+  root: string
+  accounts: {
+    [address: string]: Account
+  }
+}
 
 export enum AccountType {
   EOA,
