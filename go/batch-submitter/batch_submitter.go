@@ -9,6 +9,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/ethereum-optimism/optimism/go/batch-submitter/drivers/l2output"
 	"github.com/ethereum-optimism/optimism/go/batch-submitter/drivers/proposer"
 	"github.com/ethereum-optimism/optimism/go/batch-submitter/drivers/sequencer"
 	"github.com/ethereum-optimism/optimism/go/batch-submitter/txmgr"
@@ -215,6 +216,29 @@ func NewBatchSubmitter(cfg Config, gitVersion string) (*BatchSubmitter, error) {
 			TxManagerConfig: txManagerConfig,
 		})
 	}
+
+	l2OutputDriver, err := l2output.NewDriver(l2output.Config{
+		Name:        "L2Output",
+		L1Client:    l1Client,
+		L2Client:    l2Client,
+		BlockOffset: cfg.BlockOffset,
+		MaxTxSize:   cfg.MaxL1TxSize,
+		SROAddr:     sccAddress,
+		ChainID:     chainID,
+		PrivKey:     proposerPrivKey,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	_ = NewService(ServiceConfig{
+		Context:         ctx,
+		Driver:          l2OutputDriver,
+		PollInterval:    cfg.PollInterval,
+		ClearPendingTx:  cfg.ClearPendingTxs,
+		L1Client:        l1Client,
+		TxManagerConfig: txManagerConfig,
+	})
 
 	return &BatchSubmitter{
 		ctx:               ctx,
